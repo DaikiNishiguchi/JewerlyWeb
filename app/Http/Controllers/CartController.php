@@ -22,22 +22,41 @@ class CartController extends Controller
         $product_user = new Product_user;
         
     
-        $product_users = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','size')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->get();
-
-        $product_sum = $product_user->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->sum('price');
-
-        return view('itemcart',[
-            'products'=> $product_users,
-            'product_sum'=>$product_sum
-        ]);
+        $product_users = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','file_name')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->get();
+        if($product_users->isEmpty()){
+            return view('carthistrynothing');
+        }else{
+            $product_sum = $product_user->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->sum('price');
+            return view('itemcart',[
+                'products'=> $product_users,
+                'product_sum'=>$product_sum
+            ]);
+        }
     }
+
+    // public function cartDisplay()
+    // {
+    //     $product_user = new Product_user;
+    //     $product_users = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','file_name')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->get();
+    //     $product_sum = $product_user->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->sum('price');
+
+    //     if($product_users->isEmpty()){
+            
+    //     }else{
+    //         return view('itemcart',[
+    //             'products'=> $product_users,
+    //             'product_sum'=>$product_sum,
+    //         ]);
+    //     }
+        
+    // }
 
     public function buy()
     {
         $product_user = new Product_user;
         
     
-        $product_users = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','size')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->get();
+        $product_users = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','file_name')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->get();
 
         $product_sum = $product_user->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',0)->sum('price');
 
@@ -137,12 +156,12 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        $product_user = new Product_user;
-        $product_users = $product_user->find($id);
+        // $product_user = new Product_user;
+        // $product_users = $product_user->find($id);
 
-        $product_users->delete();
+        // $product_users->delete();
 
-        return redirect('/itemcart');
+        // return redirect('/itemcart');
     }
 
     public function delete($id)

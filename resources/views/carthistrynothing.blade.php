@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="text-center">
-  <a>購入履歴</a>
+  <a>カート</a>
 </div>
 <div class="m-5 text-center">
-  <span>購入履歴はございません。</span>
+  <span>現在カートに商品はございません。</span>
 </div>
 
 <div class="m-5 text-center">

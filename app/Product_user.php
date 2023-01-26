@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FavoriteController;
 
 class Product_user extends Model
 {

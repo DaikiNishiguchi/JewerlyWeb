@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +26,21 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
 
+Route::group(['middleware'=>'auth'],function(){
 Route::resource('products', 'ProductController');
 Route::resource('carts', 'CartController');
-
 Route::get('/', 'ProductController@index');
-Route::get('/admin', 'ProductController@adminIndex');
+Route::get('/admin', 'ProductController@adminIndex')->name('products.adminIndex');
 Route::get('/cart_delete/{id}', 'CartController@delete')->name('cart.delete');
 Route::post('/cart_buy', 'CartController@buy')->name('cart.buy');
 Route::post('/comp', 'CartController@comp')->name('cart.comp');
 Route::get('/purchase_history', 'ProductController@history')->name('products.history');
+Route::get('/profile_indx', 'ProfileController@profileIndex')->name('profile.index');
+Route::post('/ajaxfavorite', 'FavoriteController@ajaxFavorite');
+Route::get('/favoritelist', 'FavoriteController@favoriteList')->name('favorites.list');
+Route::get('/favoritelist/{id}', 'FavoriteController@favoriteDestroy')->name('favorite.destroy');
+
+});
 
 
 // ログイン画面

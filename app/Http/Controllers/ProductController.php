@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Product_user;
+use App\Favorite;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -16,13 +17,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = new Product;
-        $products = $product->all();
+        $favorite_model = new Favorite;
+        $keyword = $request->input('keyword');
+        $price_range = $request->input('price_range');
+        $query = Product::query();
+
+        if(!empty($keyword)){
+            $query->where('name','like','%'.$keyword.'%');
+        }
+        if(!empty($price_range)){
+            $query->where('price','<=',$price_range);
+        }
+        $products = $query->get();
 
         return view('webhome',[
             'products'=> $products,
+            'favorite_model' => $favorite_model,
         ]);
     }
 
@@ -59,12 +71,16 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->comment = $request->comment;
         $product->price = $request->price;
-        $product->size = $request->size;
         $product->stock = $request->stock;
+
+        if(!empty($request->file_name)){
+            $file_name = $request->file_name->getClientOriginalName();
+            $product->file_name = $request->file_name->storeAs('',$file_name,'public'); 
+        }
         
         $product->save();
 
-        return redirect()->route('products.index');
+        return redirect('/admin');
     }
 
     /**
@@ -136,11 +152,14 @@ class ProductController extends Controller
         $record->comment = $request->comment;        
         $record->price = $request->price;
         $record->stock = $request->stock;
-        $record->size = $request->size;
+        if(!empty($request->file_name)){
+            $file_name = $request->file_name->getClientOriginalName();
+            $record->file_name = $request->file_name->storeAs('',$file_name,'public'); 
+        }
 
         $record->save();
 
-        return redirect('/products');
+        return redirect('/admin');
     }
 
     /**
@@ -155,16 +174,19 @@ class ProductController extends Controller
         $products = $product->find($id);
         $products->forceDelete();
 
-        return redirect('/products');
+        return redirect('/admin');
     }
 
     public function history()
     {
-        $products = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','size','product_user.updated_at')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',1)->get();
+        $products = Product_user::select('product_user.id as pu_id','user_id','product_id','status','name','price','file_name','product_user.updated_at')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->where('status',1)->get();
+        if($products->isEmpty()){
+            return view('buyhistorynothing');
+        }else{
+            return view('buyhistory',[
+                'products'=> $products,
+            ]);
+        }
         
-
-        return view('buyhistory',[
-            'products'=> $products,
-        ]);
     }
 }
