@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="text-center"><h5>商品一覧</h5></div>
 <!-- 検索フォーム -->
 <div class="row justify-content-center my-3">
@@ -33,8 +34,15 @@
   <div class="card-body">
     <div class="row text-center">
       <div class="col">
-        <h5 class="card-title">{{ $product['name']}}</h5>
-        <p class="card-text">¥{{ $product['price']}}</p>
+        <td class="card-title d-block">{{ $product['name']}}</td>
+
+        @if($product['stock'] <= 0)
+        <p class="card-text mt-3">入荷待ち</p>
+        @else
+        <p class="card-text mt-3">stock：{{ $product['stock']}}</p>
+        @endif
+        
+        <p class="card-text">¥{{ number_format($product['price'])}}</p>
       </div>
       @if($favorite_model->favorite_exist(Auth::user()->id,$product->id))
       <div class="col pt-2">
@@ -54,10 +62,8 @@
 </div>
 </div>
   @endforeach
-
 </div>
-<style>
-</style>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(function () {

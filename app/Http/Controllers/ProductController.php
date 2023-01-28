@@ -9,6 +9,7 @@ use App\Favorite;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateData;
 
 class ProductController extends Controller
 {
@@ -64,10 +65,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateData $request)
     {
         $product = new Product;
-
         $product->name = $request->name;
         $product->comment = $request->comment;
         $product->price = $request->price;
@@ -137,7 +137,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateData $request, $id)
     {
         $instance = new Product;
         $record = $instance->find($id);
@@ -152,7 +152,7 @@ class ProductController extends Controller
         $record->comment = $request->comment;        
         $record->price = $request->price;
         $record->stock = $request->stock;
-        if(!empty($request->file_name)){
+        if($request->hasFile('file_name')){
             $file_name = $request->file_name->getClientOriginalName();
             $record->file_name = $request->file_name->storeAs('',$file_name,'public'); 
         }

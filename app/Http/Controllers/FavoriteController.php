@@ -63,6 +63,20 @@ class FavoriteController extends Controller
         return redirect('/favoritelist');
     }
 
+
+
+    // お気に入りから詳細飛べる
+    // public function favoriteshow($id)
+    // {
+    //     $favorite = new Favorite;
+    //     $product = new Product;
+    //     $favorites = Favorite::select('favorites.id as fa_id','user_id','product_id','name','price','file_name')->join('products','product_id','=','products.id')->where('user_id',Auth::id())->get();
+
+    //     return view('ditail',[
+    //         'favorites'=> $favorites,
+    //     ]);
+    // }
+
 }
 
 

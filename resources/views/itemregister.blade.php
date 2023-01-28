@@ -3,6 +3,15 @@
 @section('content')
 <h5 class="m-3 text-center">商品登録画面</h5>
 
+@if($errors->any())
+<div class='alert alert-danger text-center'>
+  <ul>
+    @foreach($errors->all() as $message)
+    <li>{{$message}}</li>
+    @endforeach
+  </ul>
+</div>
+@endif
 
 <div class="row d-flex justify-content-around">
   <div class="h-25 w-25">
@@ -16,25 +25,25 @@
 <!-- 商品名 -->
   <div class="row mb-3">
     <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="商品名" name="name">
+      <input type="text" class="form-control" placeholder="商品名" name="name" value="{{old('name')}}">
     </div>
   </div>
 <!-- 商品詳細 -->
   <div class="row mb-3">
     <div class="col-sm-10">
-      <textarea type="text" class="form-control" placeholder="商品詳細" name="comment"></textarea>
+      <textarea type="text" class="form-control" placeholder="商品詳細" name="comment">{{old('comment')}}</textarea>
     </div>
   </div>
 <!-- 値段 -->
   <div class="row mb-3">
     <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="値段" name="price">
+      <input type="text" class="form-control" placeholder="値段" name="price" value="{{old('price')}}">
     </div>
   </div>
 <!-- ストック -->
   <div class="row mb-3">
     <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="在庫" name="stock">
+      <input type="text" class="form-control" placeholder="在庫" name="stock" value="{{old('stock')}}">
     </div>
   </div>
 

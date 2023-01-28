@@ -11,8 +11,8 @@
   <div>
     <table>
       <tr>
-        <td class="d-block">商品名：{{$product['name']}}</td>
-        <td class="d-block">金額：{{$product['price']}}</td>
+        <td class="d-block">{{$product['name']}}</td>
+        <td class="d-block">¥{{number_format($product['price'])}}</td>
 
 
         <td class="d-block"><a href ="{{ route('cart.delete',$product->pu_id)}}"><button class="text-center d-block btn btn-outline-danger" onclick='return confirm("削除しますか？");'>削除</button></a></td>
@@ -22,7 +22,7 @@
 </div>
 @endforeach
 
-<div class="text-center">合計：¥{{$product_sum}}</div>
+<div class="text-center">合計：¥{{number_format($product_sum)}}</div>
 <form action="{{ route('cart.buy',$product->pu_id)}}" method='POST'>
 @csrf
 <div class="text-center"><button type="submit" class="btn-dark rounded-pill col-3">購入</button></div>

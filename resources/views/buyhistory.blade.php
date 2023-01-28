@@ -10,8 +10,8 @@
   <div>
     <table class="mt-5">
       <tr>
-        <td class="d-block mt-3">商品名:{{$product['name']}}</td>
-        <td class="d-block mt-3">値段:{{$product['price']}}</td>
+        <td class="d-block mt-3">{{$product['name']}}</td>
+        <td class="d-block mt-3">¥{{number_format($product['price'])}}</td>
         <td class="d-block mt-3">購入日:{{$product['updated_at']->format('Y年m月d日')}}</td>
       </tr>
     </table>

@@ -9,6 +9,6 @@
 </div>
 
 <div class="m-5 text-center">
-  <button class="ma-5 btn-success rounded-pill col-5"><a href="{{route('products.index')}}">ホームへ</button>
+<a href="{{route('products.index')}}"><button class="ma-5 btn-success rounded-pill col-5">ホームへ</button></a>
 </div>
 @endsection

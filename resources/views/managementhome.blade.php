@@ -11,7 +11,7 @@
     <p>
       <span class="text-center d-block">商品名：{{ $product['name']}}</span>
       <span class="text-center d-block">在庫：{{ $product['stock']}}</span>
-      <span class="text-center d-block">¥{{ $product['price']}}</span>
+      <span class="text-center d-block">¥{{number_format($product['price'])}}</span>
     </p>
   </div>
   <div>

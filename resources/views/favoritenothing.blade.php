@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-center">
-  <a>お気に入りリスト</a>
+  <a>お気に入り</a>
 </div>
 <div class="m-5 text-center">
   <span>お気に入り商品は現在登録されておりません。</span>

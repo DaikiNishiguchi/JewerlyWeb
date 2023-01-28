@@ -13,17 +13,18 @@
   <div>
     <table>
       <tr>
-        <td class="d-block">商品名：{{$product['name']}}</td>
-        <td class="d-block">小計：{{$product['price']}}<td>
+        <td class="d-block">{{$product['name']}}</td>
+        <td class="d-block">¥{{number_format($product['price'])}}<td>
       </tr>
     </table>
   </div>
 </div>
 @endforeach
 
-<div class="text-center">合計：¥{{$product_sum}}</div>
+<div class="text-center">合計：¥{{number_format($product_sum)}}</div>
 <form action="{{ route('cart.comp',$product->pu_id)}}" method='POST'>
 @csrf
+
 <div class="text-center"><button type="submit" class="btn-dark rounded-pill col-3">購入確定</button></div>
 </form>
 @endsection

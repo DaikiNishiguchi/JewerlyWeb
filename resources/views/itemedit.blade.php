@@ -3,6 +3,16 @@
 @section('content')
 <h5 class="m-3 text-center">商品編集画面</h5>
 
+@if($errors->any())
+<div class='alert alert-danger text-center'>
+  <ul>
+    @foreach($errors->all() as $message)
+    <li>{{$message}}</li>
+    @endforeach
+  </ul>
+</div>
+@endif
+
 <div class="row d-flex justify-content-around">
     <img src="{{asset('storage/'.$products['file_name'])}} " class="img-thumbnail w-25 h-25" id='preview' alt="...">
   <form action="{{ route('products.update',$products->id)}}" method='POST' enctype="multipart/form-data">

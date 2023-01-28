@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Product_user;
+use App\Mail\ThanksMail; 
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
@@ -66,7 +68,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function comp()
+    public function comp(request $request)
     {
         // $product_user = new Product_user;
         Product_user::where('user_id',Auth::id())->update(['status'=>1]);
@@ -78,6 +80,15 @@ class CartController extends Controller
             }
             
         }
+
+        // メール送付
+        // $data = $request->toArray();
+
+
+
+        Mail::to(Auth::user()->email)->send(new ThanksMail());
+
+        session()->flash('success', '送信しました！');
         
         return view('buyconfirm');
     }
