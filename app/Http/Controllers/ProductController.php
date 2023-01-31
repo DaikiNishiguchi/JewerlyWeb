@@ -36,6 +36,7 @@ class ProductController extends Controller
         return view('webhome',[
             'products'=> $products,
             'favorite_model' => $favorite_model,
+            'keyword'=>$keyword,
         ]);
     }
 

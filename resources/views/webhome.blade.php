@@ -9,12 +9,12 @@
             @csrf
             <div class="input-group">
                 <div class="col-lg input-group-sm">
-                    <input type="text" class="form-control" name="keyword" value="" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control" name="keyword" value="{{$keyword}}" aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="col-lg input-group-sm">
                   <select name='price_range' class='form-control'>
                       <option value='' hidden >価格帯を選択</option>
-                      <option value='10000'>~¥10,000</option>
+                      <option value='10000' >~¥10,000</option>
                       <option value='30000'>~¥30,000</option>
                       <option value='50000'>~¥50,000</option>
                       </select>
